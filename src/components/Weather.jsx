@@ -5,6 +5,7 @@ import Clock from "react-live-clock";
 import Forecast from "./Forecast";
 import loader from "../images/WeatherIcons.gif";
 import ReactAnimatedWeather from "react-animated-weather";
+import Favorites from "./Favorites";
 
 const dateBuilder = (d) => {
   let months = [
@@ -186,6 +187,8 @@ function Weather() {
         </div>
       </div>
       <Forecast icon={state.icon} weather={state.description} /> 
+      <Favorites getWeather={getWeather}/>
+
     </>
   );
 }
