@@ -105,18 +105,18 @@ function Weather() {
       console.error('No weather data found');
       }
 
-      // setState(prevState => ({
-      //  ...prevState,
-      //   lat: lat,
-      //   lon: lon,
-      //   city: data.name,
-      //   temperatureC: Math.round(data?.main?.temp),
-      //   temperatureF: Math.round(data?.main?.temp * 1.8 + 32),
-      //   humidity: data?.main?.humidity,
-      //   description: data?.weather[0]?.main,
-      //   country: data?.sys?.country,
-      //   icon: determineIcon(data?.weather[0]?.main),
-      // }));
+      setState(prevState => ({
+       ...prevState,
+        lat: lat,
+        lon: lon,
+        city: data.name,
+        temperatureC: Math.round(data?.main?.temp),
+        temperatureF: Math.round(data?.main?.temp * 1.8 + 32),
+        humidity: data?.main?.humidity,
+        description: data?.weather[0]?.main,
+        country: data?.sys?.country,
+        icon: determineIcon(data?.weather[0]?.main),
+      }));
 
     } catch (error) {
       console.error(error);
