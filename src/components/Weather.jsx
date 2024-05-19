@@ -96,7 +96,6 @@ function Weather() {
       throw new Error(`HTTP error status: ${api_call.status}`);
     }
       const data = await api_call.json();
-      console.log(data)
 
       if (data.cod === "404") {
         throw new Error("City not found");
