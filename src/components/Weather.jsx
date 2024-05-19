@@ -74,6 +74,7 @@ function Weather() {
           getWeather(position.coords.latitude, position.coords.longitude);
         },
         (err) => {
+          console.error("Geolocation error:", err);
           alert("You have disabled location service. Allow 'This APP' to access your location.");
           getWeather(28.67, 77.22); // Fallback coordinates
         }
@@ -87,22 +88,18 @@ function Weather() {
     return () => clearInterval(timerID);
   }, []);
 
-  const getWeather = async (lat, lon) => {
+  const getWeather = async (lat, lon) => {  
+    try {
     const api_call = await fetch(`${apiKeys.base}/weather?lat=${lat}&lon=${lon}&units=metric&APPID=${apiKeys.key}`);
 
     if (!api_call.ok) {
       throw new Error(`HTTP error status: ${api_call.status}`);
     }
-    try {
       const data = await api_call.json();
       console.log(data)
 
-      if (Array.isArray(data.current.weather) && data.current.weather.length > 0) {
-      const mainDescription = data.current.weather[0].main;
-      // Now you can safely use mainDescription
-      console.log(mainDescription);
-      } else {
-      console.error('No weather data found');
+      if (data.cod === "404") {
+        throw new Error("City not found");
       }
 
       setState(prevState => ({
