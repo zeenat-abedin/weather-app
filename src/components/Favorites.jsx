@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
+import { getWeather } from "../utils/helpers";
 import './Favorites.css'
 
-function Favorites({ getWeather }) { 
+function Favorites() { 
    const [favorites, setFavorites] = useState([]);
    const [newLocationName, setNewLocationName] = useState('');
 
-   function addFavoriteLocation(name) {
-  // Assuming you have a way to convert the name to latitude and longitude
-          
+   function addFavoriteLocation(name) {          
     getWeather(name).then(({ lat, lon }) => {
       setFavorites([...favorites, { name: newLocationName, lat, lon }]);
       setNewLocationName('');
     });
    }
     
+    console.log(favorites)
   return (
     <div className="favorites">
         <form onSubmit={(e) => e.preventDefault()}>

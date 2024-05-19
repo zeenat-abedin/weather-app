@@ -1,11 +1,11 @@
 
 import { useState, useEffect } from "react";
-import apiKeys from "../data/apiKeys";
 import Clock from "react-live-clock";
 import Forecast from "./Forecast";
 import loader from "../images/WeatherIcons.gif";
 import ReactAnimatedWeather from "react-animated-weather";
 import Favorites from "./Favorites";
+import { getWeather } from "../utils/helpers";
 
 const dateBuilder = (d) => {
   let months = [
@@ -72,7 +72,22 @@ function Weather() {
             lat: position.coords.latitude,
             lon: position.coords.longitude,
           }));
-          getWeather(position.coords.latitude, position.coords.longitude);
+          getWeather(position.coords.latitude, position.coords.longitude).then(data => {
+              setState({
+                lat: data.lat,
+                lon: data.lon,
+                city: data.city,
+                temperatureC: data.temperatureC,
+                temperatureF: data.temperatureF,
+                humidity: data.humidity,
+                description: data.description,
+                country: data.country,
+                icon: data.icon,
+              });
+            }).catch(err => {
+              console.error("Error fetching weather data:", err);
+              setState({...state, errorMessage: err.message });
+            });
         },
         (err) => {
           console.error("Geolocation error:", err);
@@ -88,62 +103,6 @@ function Weather() {
 
     return () => clearInterval(timerID);
   }, []);
-
-  const getWeather = async (lat, lon) => {  
-    try {
-    const api_call = await fetch(`${apiKeys.base}/weather?lat=${lat}&lon=${lon}&units=metric&APPID=${apiKeys.key}`);
-
-    if (!api_call.ok) {
-      throw new Error(`HTTP error status: ${api_call.status}`);
-    }
-      const data = await api_call.json();
-
-      if (data.cod === "404") {
-        throw new Error("City not found");
-      }
-
-      setState(prevState => ({
-       ...prevState,
-        lat: lat,
-        lon: lon,
-        city: data.name,
-        temperatureC: Math.round(data?.main?.temp),
-        temperatureF: Math.round(data?.main?.temp * 1.8 + 32),
-        humidity: data?.main?.humidity,
-        description: data?.weather[0]?.main,
-        country: data?.sys?.country,
-        icon: determineIcon(data?.weather[0]?.main),
-      }));
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const determineIcon = (description) => {
-    switch (description) {
-      case "Haze":
-        return "CLEAR_DAY";
-      case "Clouds":
-        return "CLOUDY";
-      case "Rain":
-        return "RAIN";
-      case "Snow":
-        return "SNOW";
-      case "Dust":
-        return "WIND";
-      case "Drizzle":
-        return "SLEET";
-      case "Fog":
-        return "FOG";
-      case "Smoke":
-        return "FOG";
-      case "Tornado":
-        return "WIND";
-      default:
-        return "CLEAR_DAY";
-    }
-  };
 
   if (!state.temperatureC) {
     return (
@@ -187,7 +146,7 @@ function Weather() {
         </div>
       </div>
       <Forecast icon={state.icon} weather={state.description} /> 
-      <Favorites getWeather={getWeather}/>
+      <Favorites />
 
     </>
   );
