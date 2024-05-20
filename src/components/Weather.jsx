@@ -6,6 +6,7 @@ import ReactAnimatedWeather from "react-animated-weather";
 import loader from "../images/WeatherIcons.gif";
 import { getWeather } from "../utils/helpers";
 import Forecast from "./Forecast";
+import WeatherMood from "./Mood";
 
 const dateBuilder = (d) => {
   let months = [
@@ -63,6 +64,9 @@ function Weather() {
     errorMsg: undefined,
   });
 
+const [weatherData, setWeatherData] = useState(null);
+  console.log('weatherData', weatherData)
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -73,6 +77,7 @@ function Weather() {
             lon: position.coords.longitude,
           }));
           getWeather(position.coords.latitude, position.coords.longitude).then(data => {
+             setWeatherData(data);
               setState({
                 lat: data.lat,
                 lon: data.lon,
@@ -130,6 +135,7 @@ function Weather() {
           />
           <p>{state.description}</p>
         </div>
+      <WeatherMood weatherData={weatherData} />
         <div className="date-time">
           <div className="dmy">
             <div id="txt"></div>

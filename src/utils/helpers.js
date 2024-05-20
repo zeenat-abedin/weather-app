@@ -2,13 +2,13 @@ import apiKeys from '../data/apiKeys';
 
 export const getWeather = async (lat, lon) => {
   try {
-    const api_call = await fetch(`${apiKeys.base}/weather?lat=${lat}&lon=${lon}&units=metric&APPID=${apiKeys.key}`);
+    const response = await fetch(`${apiKeys.base}/weather?lat=${lat}&lon=${lon}&units=metric&APPID=${apiKeys.key}`);
 
-    if (!api_call.ok) {
-      throw new Error(`HTTP error status: ${api_call.status}`);
-    }
+    // if (!response.ok) {
+    //   throw new Error(`HTTP error status: ${response.status}`);
+    // }
 
-    const data = await api_call.json();
+    const data = await response.json();
 
     if (data.cod === "404") {
       throw new Error("City not found");
@@ -26,7 +26,7 @@ export const getWeather = async (lat, lon) => {
       icon: determineIcon(data?.weather[0]?.main),
     };
   } catch (error) {
-    console.error(error);
+    console.error('Failed to fetch weather data:', error);
     throw error;
   }
 };
