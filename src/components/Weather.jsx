@@ -1,11 +1,12 @@
 
 import { useState, useEffect } from "react";
 import Clock from "react-live-clock";
-import Forecast from "./Forecast";
-import loader from "../images/WeatherIcons.gif";
 import ReactAnimatedWeather from "react-animated-weather";
-import Favorites from "./Favorites";
+
+import loader from "../images/WeatherIcons.gif";
 import { getWeather } from "../utils/helpers";
+import Favorites from "./Favorites";
+import Forecast from "./Forecast";
 
 const dateBuilder = (d) => {
   let months = [

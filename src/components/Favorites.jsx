@@ -1,16 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getWeather } from "../utils/helpers";
 import './Favorites.css'
 
 function Favorites() { 
    const [favorites, setFavorites] = useState([]);
    const [newLocationName, setNewLocationName] = useState('');
+   const [isLoading, setIsLoading] = useState(false);
+    
+   useEffect(() => {
+    console.log(favorites);
+  }, [favorites]);
 
    function addFavoriteLocation(name) {          
-    getWeather(name).then(({ lat, lon }) => {
+    getWeather(name).then(data => {
+      const { lat, lon } = data;
       setFavorites([...favorites, { name: newLocationName, lat, lon }]);
       setNewLocationName('');
-    });
+      setIsLoading(false); 
+    }).catch(error => {
+    console.error("Failed to add location:", error);
+    setIsLoading(false); 
+  });
    }
     
     console.log(favorites)
@@ -23,7 +33,7 @@ function Favorites() {
                 onChange={(e) => setNewLocationName(e.target.value)}
                 placeholder="Enter location name"
             />
-            <button onClick={addFavoriteLocation}>Add as Favorite</button>
+            <button onClick={() => addFavoriteLocation(newLocationName)}>Add as Favorite</button>
         </form>
         <ul>
           {favorites.map((favorite, index) => (
