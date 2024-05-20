@@ -1,16 +1,13 @@
-<p align="center">
-<img src="https://www.htmlhints.com/image/react/reactWeatherApp.png" width="100%">
-</p>
+### What does this project do?
+The project is a weather application built in React.JS that allows users to view the weather forecast for different locations. Users can search for a specific city or view the weather based on their current location. The application provides real-time weather information along with animated weather icons.
 
-<p align="center">
-  View Complete <a href="https://www.htmlhints.com/article/how-to-create-weather-app-using-reactjs-with-current-location-search-city/93">Installation details</a>.
- </p>
- <p align="center">
-  View <a href="https://master.d2gxbs6vwhkz68.amplifyapp.com/">Live demo</a>.
- </p>
+### Why does this project exist?
+The project exists to provide users with a simple and visually appealing way to check the weather forecast. It aims to solve the need for a user-friendly weather application that displays accurate and up-to-date weather information.
 
-## Setup
+### Main technologies, frameworks, languages used:
+- **Technologies:** React.js, Axios (for API requests)
 
-```
-npm i && npm start
-```
+### Additional Information:
+- The project uses various React libraries for functionalities like geolocation, weather icons, and date/time display.
+- The `npm start` script is used to run the application locally.
+
