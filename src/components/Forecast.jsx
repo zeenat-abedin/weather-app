@@ -64,9 +64,10 @@ function Forecast(props) {
             value={query}
           />
           <div className="img-box">
-            <img
+            <img              
               src="https://images.avishkaar.cc/workflow/newhp/search-white.png"
               onClick={search}
+              alt="search-icon"
             />
           </div>
         </div>
@@ -81,10 +82,11 @@ function Forecast(props) {
                 <img
                   className="temp"
                   src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
+                  alt="weather-icon"
                 />
               </li>
               <li>
-                Temperature{" "}
+                Temperature
                 <span className="temp">
                   {Math.round(weather.main.temp)}°c ({weather.weather[0].main})
                 </span>
