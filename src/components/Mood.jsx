@@ -23,7 +23,7 @@ function WeatherMood({ weatherData }) {
 
   return (
     <div className="weather-mood">
-      <h3>{mood}</h3>
+      <h1>{mood}</h1>
       <p>{activity}</p>
     </div>
   );

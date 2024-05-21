@@ -251,6 +251,20 @@ h1 {
   padding: 30px 30px 0 0;
 }
 
+.weather-mood{
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  padding: 22px 30px;
+    text-align: left;
+}
+
+.weather-mood h1{
+  letter-spacing: 0;
+  margin-top: 0;
+  font-size: 40px;
+}
+
 .title h2 {
   color: #fff;
   font-size: 30px;
