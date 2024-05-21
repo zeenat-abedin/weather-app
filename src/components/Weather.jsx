@@ -65,7 +65,6 @@ function Weather() {
   });
 
 const [weatherData, setWeatherData] = useState(null);
-  console.log('weatherData', weatherData)
 
   useEffect(() => {
     if (navigator.geolocation) {
