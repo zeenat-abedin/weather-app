@@ -1,14 +1,21 @@
-import React, { useState, useEffect, useCallback } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import apiKeys from "../data/apiKeys";
 import ReactAnimatedWeather from "react-animated-weather";
+
+const defaults = {
+    color: "white",
+    size: 112,
+    animate: true,
+};
 
 function Forecast(props) {
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
   const [weather, setWeather] = useState({});
-
-  const search = useCallback((city) => {
+  
+  const search = (city) => {
     axios
       .get(
         `${apiKeys.base}weather?q=${
@@ -25,16 +32,10 @@ function Forecast(props) {
         setQuery("");
         setError({ message: "Not Found", query: query });
       });
-  },[query]);
-
-  const defaults = {
-    color: "white",
-    size: 112,
-    animate: true,
   };
 
   useEffect(() => {
-    search("Delhi");
+    search("Delhi");  
   }, [search]);
 
   return (

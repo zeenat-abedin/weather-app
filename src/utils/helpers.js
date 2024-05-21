@@ -4,12 +4,12 @@ export const getWeather = async (lat, lon) => {
   try {
     const response = await fetch(`${apiKeys.base}/weather?lat=${lat}&lon=${lon}&units=metric&APPID=${apiKeys.key}`);
 
-    // if (!response.ok) {
-    //   throw new Error(`HTTP error status: ${response.status}`);
-    // }
+    if (!response.ok) {
+      throw new Error(`HTTP error status: ${response.status}`);
+    }
 
     const data = await response.json();
-
+    console.log(data)
     if (data.cod === "404") {
       throw new Error("City not found");
     }
