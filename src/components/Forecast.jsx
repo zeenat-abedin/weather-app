@@ -36,9 +36,10 @@ function Forecast(props) {
 
   useEffect(() => {
     search("Delhi");  
-  }, [search]);
+  }, []);
 
   return (
+
     <div className="forecast">
       <div className="forecast-icon">
         <ReactAnimatedWeather
@@ -61,7 +62,7 @@ function Forecast(props) {
           <div className="img-box">
             <img              
               src="https://images.avishkaar.cc/workflow/newhp/search-white.png"
-              onClick={search}
+              onClick={() => search(query)}
               alt="search-icon"
             />
           </div>
