@@ -9,7 +9,6 @@ export const getWeather = async (lat, lon) => {
     }
 
     const data = await response.json();
-    console.log(data)
     if (data.cod === "404") {
       throw new Error("City not found");
     }
